@@ -1,0 +1,26 @@
+[project]
+name = "excel-agent-skills"
+version = "0.1.0"
+description = "MCP server for Excel file manipulation"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp[cli]>=1.2.0",
+    "openpyxl>=3.1.2"
+]
+[[project.authors]]
+name = "freyzo"
+email = "freyzo@users.noreply.github.com"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.scripts]
+excel-agent-skills = "xl_agent.__main__:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/xl_agent"]
+
+[tool.hatch.build]
+packages = ["src/xl_agent"]

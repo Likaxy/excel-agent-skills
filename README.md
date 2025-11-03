@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/freyzo-excel-agent-skills-badge.png)](https://mseep.ai/app/freyzo-excel-agent-skills)
+
 # Excel MCP Server
 
 A Model Context Protocol (MCP) server that lets you manipulate Excel files without needing Microsoft Excel installed. Create, read, and modify Excel workbooks with your AI agent.
@@ -10,6 +12,7 @@ A Model Context Protocol (MCP) server that lets you manipulate Excel files witho
 - 📈 Create charts and visualizations
 - 📊 Generate pivot tables
 - 🔄 Manage worksheets and ranges
+- 🔌 Dual transport support: stdio and SSE
 
 ## Quick Start
 
@@ -32,36 +35,59 @@ uv pip install -e .
 
 ### Running the Server
 
-Start the server (default port 8000):
+The server supports two transport modes: stdio and SSE.
+
+#### Using stdio transport (default)
+
+Stdio transport is ideal for direct integration with tools like Cursor Desktop or local development, which can manipulate local files:
+
 ```bash
-uv run excel-agent-skills
+excel-agent-skills stdio
 ```
 
-Custom port (e.g., 8080):
+#### Using SSE transport
+
+SSE transport is perfect for web-based applications and remote connections, which manipulate remote files:
 
 ```bash
-# Bash/Linux/macOS
-export FASTMCP_PORT=8080 && uv run excel-agent-skills
+excel-mcp sse
+```
 
-# Windows PowerShell
-$env:FASTMCP_PORT = "8080"; uv run excel-agent-skills
+You can specify host and port for the SSE server:
+
+```bash
+excel-mcp sse --host 127.0.0.1 --port 8080
 ```
 
 ## Using with AI Tools
 
 ### Cursor IDE
 
-1. Add this configuration to Cursor:
+1. Add this configuration to Cursor, choosing the appropriate transport method for your needs:
+
+**Stdio transport connection** (for local integration):
 ```json
 {
-  "mcpServers": {
-    "excel": {
-      "url": "http://localhost:8000/sse",
-      "env": {
-        "EXCEL_FILES_PATH": "/path/to/excel/files"
+   "mcpServers": {
+      "excel-stdio": {
+         "command": "uv",
+         "args": ["run", "excel-agent-skills", "stdio"]
       }
-    }
-  }
+   }
+}
+```
+
+**SSE transport connection** (for web-based applications):
+```json
+{
+   "mcpServers": {
+      "excel": {
+         "url": "http://localhost:8000/sse",
+         "env": {
+            "EXCEL_FILES_PATH": "/path/to/excel/files"
+         }
+      }
+   }
 }
 ```
 
@@ -69,17 +95,17 @@ $env:FASTMCP_PORT = "8080"; uv run excel-agent-skills
 
 ### Remote Hosting & Transport Protocols
 
-This server uses Server-Sent Events (SSE) transport protocol. For different use cases:
+This server supports both stdio and SSE transport protocols for maximum flexibility:
 
-1. **Using with Claude Desktop (requires stdio):**
-   - Use [Supergateway](https://github.com/supercorp-ai/supergateway) to convert SSE to stdio:
+1. **Using with Claude Desktop:**
+   - Use Stdio transport
 
-2. **Hosting Your MCP Server:**
+2. **Hosting Your MCP Server (SSE):**
    - [Remote MCP Server Guide](https://developers.cloudflare.com/agents/guides/remote-mcp-server/)
 
-## Environment Variables
+## Environment Variables （for SSE transport）
 
-- `FASTMCP_PORT`: Server port (default: 8000)
+- `FASTMCP_PORT`: Server port for SSE transport (default: 8000)
 - `EXCEL_FILES_PATH`: Directory for Excel files (default: `./excel_files`)
 
 ## Available Tools

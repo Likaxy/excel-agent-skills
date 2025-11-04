@@ -1,5 +1,4 @@
 import logging
-import sys
 import os
 from typing import Any, List, Dict
 
@@ -44,7 +43,6 @@ from xl_agent.sheet import (
 ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 LOG_FILE = os.path.join(ROOT_DIR, "excel-agent-skills.log")
 
-
 # Initialize EXCEL_FILES_PATH variable without assigning a value
 EXCEL_FILES_PATH = None
 
@@ -62,7 +60,7 @@ logger = logging.getLogger("excel-agent-skills")
 # Initialize excel-agent-skills server
 mcp = FastMCP(
     "excel-agent-skills",
-    version="0.1.1",
+    version="0.1.3",
     description="Excel agent skills server for manipulating Excel files",
     dependencies=["openpyxl>=3.1.2"],
     env_vars={

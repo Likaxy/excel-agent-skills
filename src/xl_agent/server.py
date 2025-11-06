@@ -25,6 +25,7 @@ from xl_agent.chart import create_chart_in_sheet as create_chart_impl
 from xl_agent.workbook import get_workbook_info
 from xl_agent.data import write_data
 from xl_agent.pivot import create_pivot_table as create_pivot_table_impl
+from xl_agent.tables import create_excel_table as create_table_impl
 from xl_agent.sheet import (
     copy_sheet,
     delete_sheet,
@@ -348,6 +349,31 @@ def create_pivot_table(
         return f"Error: {str(e)}"
     except Exception as e:
         logger.error(f"Error creating pivot table: {e}")
+        raise
+
+@mcp.tool()
+def create_table(
+    filepath: str,
+    sheet_name: str,
+    data_range: str,
+    table_name: str = None,
+    table_style: str = "TableStyleMedium9"
+) -> str:
+    """Creates a native Excel table from a specified range of data."""
+    try:
+        full_path = resolve_path(filepath)
+        result = create_table_impl(
+            filepath=full_path,
+            sheet_name=sheet_name,
+            data_range=data_range,
+            table_name=table_name,
+            table_style=table_style
+        )
+        return result["message"]
+    except DataError as e:
+        return f"Error: {str(e)}"
+    except Exception as e:
+        logger.error(f"Error creating table: {e}")
         raise
 
 @mcp.tool()

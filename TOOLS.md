@@ -233,6 +233,29 @@ create_pivot_table(
 - `agg_func`: Aggregation function (sum, count, average, max, min)
 - Returns: Success message
 
+## Table Operations
+
+### create_table
+
+Creates a native Excel table from a specified range of data.
+
+```python
+create_table(
+    filepath: str,
+    sheet_name: str,
+    data_range: str,
+    table_name: str = None,
+    table_style: str = "TableStyleMedium9"
+) -> str
+```
+
+- `filepath`: Path to the Excel file.
+- `sheet_name`: Name of the worksheet.
+- `data_range`: The cell range for the table (e.g., "A1:D5").
+- `table_name`: Optional unique name for the table.
+- `table_style`: Optional visual style for the table.
+- Returns: Success message.
+
 ## Worksheet Operations
 
 ### copy_worksheet

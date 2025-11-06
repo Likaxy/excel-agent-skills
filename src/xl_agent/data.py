@@ -51,21 +51,25 @@ def read_excel_range(
             except ValueError as e:
                 raise DataError(f"Invalid end cell format: {str(e)}")
         else:
-            # Dynamically expand range until all values are empty
-            end_row, end_col = start_row, start_col
-            while end_row <= ws.max_row and any(ws.cell(row=end_row, column=c).value is not None for c in range(start_col, ws.max_column + 1)):
-                end_row += 1
-            while end_col <= ws.max_column and any(ws.cell(row=r, column=end_col).value is not None for r in range(start_row, ws.max_row + 1)):
-                end_col += 1
-            end_row -= 1  # Adjust back to last non-empty row
-            end_col -= 1  # Adjust back to last non-empty column
+            # If no end_cell, use the full data range of the sheet
+            if ws.max_row == 1 and ws.max_column == 1 and ws.cell(1, 1).value is None:
+                # Handle empty sheet
+                end_row, end_col = start_row, start_col
+            else:
+                # Use the sheet's own boundaries
+                start_row, start_col = ws.min_row, ws.min_column
+                end_row, end_col = ws.max_row, ws.max_column
 
         # Validate range bounds
         if start_row > ws.max_row or start_col > ws.max_column:
-            raise DataError(
-                f"Start cell out of bounds. Sheet dimensions are "
-                f"A1:{get_column_letter(ws.max_column)}{ws.max_row}"
+            # This case can happen if start_cell is outside the used area on a sheet with data
+            # or on a completely empty sheet.
+            logger.warning(
+                f"Start cell {start_cell} is outside the sheet's data boundary "
+                f"({get_column_letter(ws.min_column)}{ws.min_row}:{get_column_letter(ws.max_column)}{ws.max_row}). "
+                f"No data will be read."
             )
+            return []
 
         data = []
         for row in range(start_row, end_row + 1):
@@ -130,91 +134,6 @@ def write_data(
     except Exception as e:
         logger.error(f"Failed to write data: {e}")
         raise DataError(str(e))
-
-def _looks_like_headers(row_dict):
-    """Check if a data row appears to be headers (keys match values)."""
-    return all(
-        isinstance(value, str) and str(value).strip() == str(key).strip()
-        for key, value in row_dict.items()
-    )
-    
-def _check_for_headers_above(worksheet, start_row, start_col, headers):
-    """Check if cells above start position contain headers."""
-    if start_row <= 1:
-        return False  # Nothing above row 1
-        
-    # Look for header-like content above
-    for check_row in range(max(1, start_row - 5), start_row):
-        # Count matches for this row
-        header_count = 0
-        cell_count = 0
-        
-        for i, header in enumerate(headers):
-            if i >= 10:  # Limit check to first 10 columns for performance
-                break
-                
-            cell = worksheet.cell(row=check_row, column=start_col + i)
-            cell_count += 1
-            
-            # Check if cell is formatted like a header (bold)
-            is_formatted = cell.font.bold if hasattr(cell.font, 'bold') else False
-            
-            # Check for any content that could be a header
-            if cell.value is not None:
-                # Case 1: Direct match with expected header
-                if str(cell.value).strip().lower() == str(header).strip().lower():
-                    header_count += 2  # Give higher weight to exact matches
-                # Case 2: Any formatted cell with content
-                elif is_formatted and cell.value:
-                    header_count += 1
-                # Case 3: Any cell with content in the first row we check
-                elif check_row == max(1, start_row - 5):
-                    header_count += 0.5
-        
-        # If we have a significant number of matching cells, consider it a header row
-        if cell_count > 0 and header_count >= cell_count * 0.5:
-            return True
-            
-    # No headers found above
-    return False
-
-def _determine_header_behavior(worksheet, start_row, start_col, data):
-    """Determine if headers should be written based on context."""
-    if not data:
-        return False  # No data means no headers
-        
-    # Check if we're in the title area (rows 1-4)
-    if start_row <= 4:
-        return False  # Don't add headers in title area
-    
-    # If we already have data in the sheet, be cautious about adding headers
-    if worksheet.max_row > 1:
-        # Check if the target row already has content
-        has_content = any(
-            worksheet.cell(row=start_row, column=start_col + i).value is not None
-            for i in range(min(5, len(data[0].keys())))
-        )
-        
-        if has_content:
-            return False  # Don't overwrite existing content with headers
-        
-        # Check if first row appears to be headers
-        first_row_is_headers = _looks_like_headers(data[0])
-        
-        # Check extensively for headers above (up to 5 rows)
-        has_headers_above = _check_for_headers_above(worksheet, start_row, start_col, list(data[0].keys()))
-        
-        # Be conservative - don't add headers if we detect headers above or the data has headers
-        if has_headers_above or first_row_is_headers:
-            return False
-        
-        # If we're appending data immediately after existing data, don't add headers
-        if any(worksheet.cell(row=start_row-1, column=start_col + i).value is not None 
-               for i in range(min(5, len(data[0].keys())))):
-            return False
-    
-    # For completely new sheets or empty areas far from content, add headers
-    return True
 
 def _write_data_to_worksheet(
     worksheet: Worksheet, 
@@ -295,25 +214,32 @@ def read_excel_range_with_metadata(
             except ValueError as e:
                 raise DataError(f"Invalid end cell format: {str(e)}")
         else:
-            # Dynamically expand range until all values are empty
-            end_row, end_col = start_row, start_col
-            while end_row <= ws.max_row and any(ws.cell(row=end_row, column=c).value is not None for c in range(start_col, ws.max_column + 1)):
-                end_row += 1
-            while end_col <= ws.max_column and any(ws.cell(row=r, column=end_col).value is not None for r in range(start_row, ws.max_row + 1)):
-                end_col += 1
-            end_row -= 1  # Adjust back to last non-empty row
-            end_col -= 1  # Adjust back to last non-empty column
+            # If no end_cell, use the full data range of the sheet
+            if ws.max_row == 1 and ws.max_column == 1 and ws.cell(1, 1).value is None:
+                # Handle empty sheet
+                end_row, end_col = start_row, start_col
+            else:
+                # Use the sheet's own boundaries, but respect the provided start_cell
+                end_row, end_col = ws.max_row, ws.max_column
+                # If start_cell is 'A1' (default), we should find the true start
+                if start_cell == 'A1':
+                    start_row, start_col = ws.min_row, ws.min_column
 
         # Validate range bounds
         if start_row > ws.max_row or start_col > ws.max_column:
-            raise DataError(
-                f"Start cell out of bounds. Sheet dimensions are "
-                f"A1:{get_column_letter(ws.max_column)}{ws.max_row}"
+            # This case can happen if start_cell is outside the used area on a sheet with data
+            # or on a completely empty sheet.
+            logger.warning(
+                f"Start cell {start_cell} is outside the sheet's data boundary "
+                f"({get_column_letter(ws.min_column)}{ws.min_row}:{get_column_letter(ws.max_column)}{ws.max_row}). "
+                f"No data will be read."
             )
+            return {"range": f"{start_cell}:", "sheet_name": sheet_name, "cells": []}
 
         # Build structured cell data
+        range_str = f"{get_column_letter(start_col)}{start_row}:{get_column_letter(end_col)}{end_row}"
         range_data = {
-            "range": f"{start_cell}:{get_column_letter(end_col)}{end_row}" if end_cell else start_cell,
+            "range": range_str,
             "sheet_name": sheet_name,
             "cells": []
         }

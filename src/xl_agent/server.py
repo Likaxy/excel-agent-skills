@@ -61,7 +61,7 @@ logger = logging.getLogger("excel-agent-skills")
 # Initialize excel-agent-skills server
 mcp = FastMCP(
     "excel-agent-skills",
-    version="0.1.3",
+    version="0.1.4",
     description="Excel agent skills server for manipulating Excel files",
     dependencies=["openpyxl>=3.1.2"],
     env_vars={

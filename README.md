@@ -1,4 +1,4 @@
-  <img src="assets/logo.svg" alt="Excel MCP Server Logo" width="300"/>
+  <img src="assets/logo.png" alt="Excel MCP Server Logo" width="300"/>
 
 [![PyPI version](https://img.shields.io/pypi/v/excel-agent-skills.svg)](https://pypi.org/project/excel-agent-skills/)
 [![PyPI downloads](https://img.shields.io/pypi/dm/excel-agent-skills.svg)](https://pypi.org/project/excel-agent-skills/)

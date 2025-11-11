@@ -66,16 +66,7 @@ logger = logging.getLogger("excel-agent-skills")
 # Initialize excel-agent-skills server
 mcp = FastMCP(
     "excel-agent-skills",
-    version="0.1.5",
-    description="Excel agent skills server for manipulating Excel files",
-    dependencies=["openpyxl>=3.1.5"],
-    env_vars={
-        "EXCEL_FILES_PATH": {
-            "description": "Path to Excel files directory",
-            "required": False,
-            "default": EXCEL_FILES_PATH
-        }
-    }
+    instructions="Excel agent skills server for manipulating Excel files"
 )
 
 def resolve_path(filename: str) -> str:

@@ -1,4 +1,3 @@
-  <img src="assets/logo.png" alt="Excel MCP Server Logo" width="300"/>
 
 [![PyPI version](https://img.shields.io/pypi/v/excel-agent-skills.svg)](https://pypi.org/project/excel-agent-skills/)
 [![Total Downloads](https://static.pepy.tech/badge/excel-agent-skills)](https://pepy.tech/project/excel-agent-skills)
@@ -80,7 +79,7 @@ uvx excel-agent-skills streamable-http
 When running the server with the **SSE or Streamable HTTP protocols**, you **must set the `EXCEL_FILES_PATH` environment variable on the server side**. This variable tells the server where to read and write Excel files.
 - If not set, it defaults to `./excel_files`.
 
-You can also set the `FASTMCP_PORT` environment variable to control the port the server listens on (default is `8000` if not set).
+You can also set the `FASTMCP_PORT` environment variable to control the port the server listens on (default is `8017` if not set).
 - Example (Windows PowerShell):
   ```powershell
   $env:EXCEL_FILES_PATH="E:\MyExcelFiles"

@@ -1,4 +1,4 @@
-# Exclude everything except manifest and icon (uvx pattern)
+# Exclude everything except manifest (uvx pattern)
 # The uvx command downloads the package from PyPI at runtime
 
 # Python source files
@@ -18,9 +18,6 @@ __pycache__/
 src/
 tests/
 docs/
-
-# Assets (icon is copied to root)
-assets/
 
 # Documentation
 *.md

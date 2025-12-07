@@ -1,0 +1,7 @@
+Scenario: create_workbook + write_data + create_chart (3 ops).
+
+MCP (full tool defs in context): create_workbook 61 + write_data_to_excel 139 + create_chart 93 = 293 tokens.
+Slate (minimal op docs): 3 slate docs ~54 tokens (446/25 * 3).
+Runner output only: result strings, no schema.
+
+Invoke path: load one slate doc per op + runner output. No full tool schema in context.

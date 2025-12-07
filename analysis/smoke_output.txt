@@ -1,0 +1,2 @@
+Created workbook: /tmp/eas_smoke.xlsx
+Sheet Sheet2 created successfully

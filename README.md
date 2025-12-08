@@ -4,6 +4,8 @@
 
 A Model Context Protocol (MCP) server that lets you manipulate Excel files without needing Microsoft Excel installed. Create, read, and modify Excel workbooks with your AI agent.
 
+See slate/ and run/ for minimal-invoke path; analysis/ for context cost.
+
 ## Features
 
 - 📊 **Excel Operations**: Create, read, update workbooks and worksheets

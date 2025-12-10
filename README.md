@@ -10,7 +10,16 @@
 
 <img src="public/flowchart.png"/>
 
-- Token baselines and how we got them: [analysis/CONTEXT-REPORT.md](analysis/CONTEXT-REPORT.md)
+### Token numbers
+
+| | Full (all 25 tools) | Minimal (slate + runner) |
+|---|---|---|
+| **Baseline** | ~2379 tokens | ~446 total, ~18 per op |
+| **Example (3 ops)** | 293 tokens | ~54 tokens |
+
+Minimal path uses about **5× fewer** tokens for the tool surface in that scenario. Full surface = discoverability and full param docs; minimal = less context, deterministic, easier to debug. When to use which: [notes/when-full-surface.md](notes/when-full-surface.md).
+
+Full methodology, per-tool table, and how to reproduce: [analysis/CONTEXT-REPORT.md](analysis/CONTEXT-REPORT.md).
 
 ---
 
@@ -34,7 +43,7 @@ python3 run/xl_cli.py create_worksheet /path/to/file.xlsx Sheet2
 
 ---
 
-## Ops (25)
+## Operations (25 total)
 
 | | |
 |---|---|

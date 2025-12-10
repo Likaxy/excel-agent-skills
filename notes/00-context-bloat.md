@@ -1,3 +1,3 @@
-Checking how much context the current tool definitions use. No clear approach yet—just need a number.
+Figuring out how much context the current tool defs eat. Still noodling on it, just wanted a number first.
 
-Raw total ~2379. Might try minimal surface.
+Raw total is about 2379. Might try the minimal surface next.

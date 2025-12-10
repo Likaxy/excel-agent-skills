@@ -1,0 +1,16 @@
+flowchart TB
+  subgraph full["FULL SERVER: all tools in context"]
+    direction TB
+    f1["Context: Tool1 schema | Tool2 | ... | Tool25 schema"]
+    f2["~2379 tokens"]
+    f3["Agent picks tool -> server runs it -> result back"]
+    f1 --> f2 --> f3
+  end
+  subgraph minimal["MINIMAL PATH: one op at a time"]
+    direction TB
+    m1["Context: one slate doc ~18 tokens | runner output"]
+    m2["~18 + result"]
+    m3["Agent picks op -> run/xl_cli.py -> stdout only"]
+    m1 --> m2 --> m3
+  end
+  full ~~~ minimal

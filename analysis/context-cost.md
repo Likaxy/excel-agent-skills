@@ -4,4 +4,4 @@
 - **Slate baseline (25 minimal docs):** ~446 tokens (~18 per op).
 - **Example (3 ops):** Full schemas ~293 tokens vs slate ~54 tokens.
 
-**Full methodology, per-tool table, and scenario:** see **[CONTEXT-REPORT.md](CONTEXT-REPORT.md)**.
+How we got these numbers and the full per-tool breakdown: see [CONTEXT-REPORT.md](CONTEXT-REPORT.md).

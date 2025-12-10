@@ -1,3 +1,3 @@
-When to keep full tool list in context: exploration, many one-off ops, need full param docs in one shot.
+Keep the full tool list when you're exploring or doing lots of one-off stuff and need the full param docs in one shot.
 
-When minimal + run is better: known workflows, few ops per turn, token budget tight. Deterministic: same args → same output. Easier to debug: run script, see stdout.
+Use minimal + run when the workflow is known, you only need a few ops per turn, or you're tight on tokens. Same args in gives you same output. Easier to debug too: run the script, look at stdout.

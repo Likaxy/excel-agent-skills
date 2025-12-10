@@ -4,7 +4,7 @@ Context-efficient Excel tooling: minimal op surface plus runners. Use slate docs
 
 ## Run
 
-- **Minimal path:** See `slate/` for one doc per op; `run/*.sh` or `run/xl_cli.py <op> [args...]`. Paths must be absolute.
+- **Minimal path:** See `slate/` for one doc per op; `run/*.sh` or `run/xl_cli.py <op> [args...]`. Paths must be absolute. Python 3.10+ required for the CLI.
 - **Context cost:** See [analysis/context-cost.md](analysis/context-cost.md) for token baselines and scenario comparison.
 
 ## Server

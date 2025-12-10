@@ -34,6 +34,24 @@ python3 run/xl_cli.py create_worksheet /path/to/file.xlsx Sheet2
 
 ---
 
+## Ops (25)
+
+| | |
+|---|---|
+| `create_workbook` | `create_worksheet` |
+| `get_workbook_metadata` | `write_data_to_excel` |
+| `read_data_from_excel` | `format_range` |
+| `merge_cells` | `unmerge_cells` |
+| `get_merged_cells` | `apply_formula` |
+| `validate_formula_syntax` | `create_chart` |
+| `create_pivot_table` | `create_table` |
+| `copy_worksheet` | `delete_worksheet` |
+| `rename_worksheet` | `copy_range` |
+| `delete_range` | `validate_excel_range` |
+| `get_data_validation_info` | `insert_rows` |
+| `insert_columns` | `delete_sheet_rows` |
+| `delete_sheet_columns` | |
+
 ## Layout
 
 | Path | Purpose |
@@ -42,3 +60,5 @@ python3 run/xl_cli.py create_worksheet /path/to/file.xlsx Sheet2
 | `run/` | `xl_cli.py` + `run/<op>.sh` |
 | `analysis/` | token counts, baselines, CONTEXT-REPORT |
 | `notes/` | when full vs minimal makes sense |
+
+

